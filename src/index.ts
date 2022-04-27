@@ -4,9 +4,10 @@ import router from './routes/pokemon'
 
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded())
 app.use(morgan('tiny'))
 
-app.use('/api/pokemon', router)
+app.use('/api/pokemons', router)
 
 const PORT = process.env.PORT || 3000
 
