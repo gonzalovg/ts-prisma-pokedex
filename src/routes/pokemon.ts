@@ -46,7 +46,6 @@ router.get('/:pokemon', (req, res) => {
 
 router.post('/', (req, res) => {
   (async () => {
-    // const pokemon = { ...req.body } as Pokemon
     const pokemon = {
       pokedex_number: +req.body.pokedex_number,
       name: req.body.name,
@@ -73,6 +72,52 @@ router.post('/', (req, res) => {
     } catch (err) {
       console.log(err)
       res.send(500)
+    }
+  })()
+})
+
+router.delete('/:pokemon', (req, res) => {
+  const pokemonName = req.params.pokemon as string
+  (async () => {
+    try {
+      await pokemonService.deletePokemon(pokemonName)
+      res.sendStatus(204)
+    } catch (err) {
+      res.send({ error: err })
+    }
+  })()
+})
+
+router.put('/:pokemon', (req, res) => {
+  (async () => {
+    const pokemonData = {
+      pokedex_number: +req.body.pokedex_number,
+      name: req.body.name,
+      generation: +req.body.generation,
+      status: req.body.status,
+      species: req.body.species,
+      type_1: req.body.type_1 as pokemonType,
+      type_2: req.body.type_2 as pokemonType,
+      height_m: +req.body.height_m,
+      weight_kg: +req.body.weight_kg,
+      ability_1: req.body.ability_1,
+      ability_2: req.body.ability_2,
+      ability_hidden: req.body.ability_hidden,
+      hp: +req.body.hp,
+      attack: +req.body.attack,
+      defense: +req.body.defense,
+      sp_attack: +req.body.sp_attack,
+      sp_defense: +req.body.sp_defense,
+      speed: +req.body.speed
+    }
+
+    const pokemonToUpdate = req.params.pokemon
+
+    try {
+      await pokemonService.updatePokemon(pokemonData, pokemonToUpdate)
+      res.sendStatus(204)
+    } catch (err) {
+      res.send({ error: err })
     }
   })()
 })

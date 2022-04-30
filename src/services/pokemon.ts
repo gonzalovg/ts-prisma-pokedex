@@ -35,6 +35,24 @@ export const addPokemon = async (pokemon: Pokemon) => {
   await prisma.$disconnect
 }
 
+export const deletePokemon = async (pokemonName: string) => {
+  const prima = new PrismaClient()
+  await prima.pokemons_mini.delete({ where: { name: pokemonName } })
+  await prima.$disconnect
+}
+
+export const updatePokemon = async (pokemon: Pokemon, pokemonToUpdate: string) => {
+  const prisma = new PrismaClient()
+  await prisma.pokemons_mini.update({
+    where: {
+      name: pokemonToUpdate
+    },
+    data: { ...pokemon }
+  })
+
+  await prisma.$disconnect
+}
+
 // export const addPokemon = async (pokemon:Object) => {
 
 // }
