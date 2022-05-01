@@ -1,21 +1,21 @@
 import { PrismaClient } from '@prisma/client'
 import { Pokemon } from '../types'
 
-export const getPokemons = async () => {
+export const getPokemons = async (): Promise<Pokemon[]> => {
   const prisma = new PrismaClient()
   const pokemons = await prisma.pokemons_mini.findMany({ orderBy: { pokedex_number: 'asc' } })
   await prisma.$disconnect
   return pokemons
 }
 
-export const getPokemonsByType = async (type: string) => {
+export const getPokemonsByType = async (type: string): Promise<Pokemon[]> => {
   const prisma = new PrismaClient()
   const pokemons = await prisma.pokemons_mini.findMany({ where: { OR: [{ type_1: { equals: type.toLowerCase(), mode: 'insensitive' } }, { type_2: { equals: type.toLowerCase(), mode: 'insensitive' } }] } })
   await prisma.$disconnect
   return pokemons
 }
 
-export const getPokemonsByGeneration = async (generationPokemon: number) => {
+export const getPokemonsByGeneration = async (generationPokemon: number): Promise<Pokemon[]> => {
   const prisma = new PrismaClient()
   const pokemons = await prisma.pokemons_mini.findMany({ where: { generation: generationPokemon } })
   await prisma.$disconnect

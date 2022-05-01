@@ -3,22 +3,22 @@ export type pokemonType = 'Ice' | 'Water' | 'Grass' | 'Dragon' | 'Fairy' | 'Elec
 // export type eggType = 'Grass' | 'Dragon' | 'Fairy' | 'Mineral' | 'Undiscovered' | 'Monster' | 'Bug' | 'Water 3' | 'Water 2' | 'Amorphous' | 'Human-Like' | '' | 'Flying' | 'Water 1' | 'Field' | 'Ditto'
 
 export interface Pokemon {
-    pokedex_number: number
+    pokedex_number: number | null
     name: string
-    generation: number
-    status: string
-    species: string
-    type_1: pokemonType
-    type_2: pokemonType
-    height_m: number
-    weight_kg: number
-    ability_1: string
-    ability_2: string
-    ability_hidden: string
-    hp: number
-    attack: number
-    defense: number
-    sp_attack: number
-    sp_defense: number
-    speed: number
+    generation: number | null
+    status: string | null
+    species: string | null
+    type_1: string | null
+    type_2: string | null
+    height_m: number | null
+    weight_kg: number | null
+    ability_1: string | null
+    ability_2: string | null
+    ability_hidden: string | null
+    hp: number | null
+    attack: number | null
+    defense: number | null
+    sp_attack: number | null
+    sp_defense: number | null
+    speed: number | null
 }
