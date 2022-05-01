@@ -3,7 +3,7 @@ import { Pokemon } from '../types'
 
 export const getPokemons = async () => {
   const prisma = new PrismaClient()
-  const pokemons = await prisma.pokemons_mini.findMany()
+  const pokemons = await prisma.pokemons_mini.findMany({ orderBy: { pokedex_number: 'asc' } })
   await prisma.$disconnect
   return pokemons
 }
