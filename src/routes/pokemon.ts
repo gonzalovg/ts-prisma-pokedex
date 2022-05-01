@@ -1,28 +1,29 @@
 // import { pokemons_mini } from '@prisma/client'
 import { Router } from 'express'
-import * as pokemonService from '../services/pokemon'
-import { pokemonType } from '../types'
+import pokemonService from '../services/pokemon'
+import { Pokemon, pokemonType } from '../types'
 
-const router = Router()
+interface PokemonQuery {
+  type: pokemonType
+}
+
+const pokemonRouter = Router()
 // todo:funcion que recoja varios args de get request y ejecute consulta
-router.get('/', (req, res) => {
-  (async () => {
-    if (req.query.type !== undefined) {
-      const type = req.query.type as unknown as pokemonType
-      console.log(type)
-      res.send(await pokemonService.getPokemonsByType(type))
-    } else {
-      res.send(await pokemonService.getPokemons())
-    }
-  })()
+pokemonRouter.get('/', async (req, res) => {
+  const query = req.query as unknown as PokemonQuery
+  console.log(query)
+  const pokemons = query.type !== undefined
+    ? await pokemonService.getPokemonsByType(query.type)
+    : await pokemonService.getPokemons()
+  res.send(pokemons)
 })
 
-router.get('/:pokemon', (req, res) => {
+pokemonRouter.get('/:pokemon', async (req, res) => {
   const pokemonName = req.params.pokemon as string
-  (async () => {
-    res.send(await pokemonService.getPokemon(pokemonName))
-  })()
+  const pokemon = await pokemonService.getPokemon(pokemonName)
+  res.send(pokemon)
 })
+
 // const pokemon = {
 //   pokedex_number: req.body.pokedex_number as number,
 //   name: req.body.name as string,
@@ -44,82 +45,39 @@ router.get('/:pokemon', (req, res) => {
 //   speed: req.body.speed as number
 // }
 
-router.post('/', (req, res) => {
-  (async () => {
-    const pokemon = {
-      pokedex_number: +req.body.pokedex_number,
-      name: req.body.name,
-      generation: +req.body.generation,
-      status: req.body.status,
-      species: req.body.species,
-      type_1: req.body.type_1 as pokemonType,
-      type_2: req.body.type_2 as pokemonType,
-      height_m: +req.body.height_m,
-      weight_kg: +req.body.weight_kg,
-      ability_1: req.body.ability_1,
-      ability_2: req.body.ability_2,
-      ability_hidden: req.body.ability_hidden,
-      hp: +req.body.hp,
-      attack: +req.body.attack,
-      defense: +req.body.defense,
-      sp_attack: +req.body.sp_attack,
-      sp_defense: +req.body.sp_defense,
-      speed: +req.body.speed
-    }
-    try {
-      await pokemonService.addPokemon(pokemon)
-      res.sendStatus(204)
-    } catch (err) {
-      console.log(err)
-      res.send(500)
-    }
-  })()
+pokemonRouter.post('/', async (req, res) => {
+  try {
+    const pokemon = req.body as Pokemon
+    await pokemonService.addPokemon(pokemon)
+    res.sendStatus(204)
+  } catch (err: any) {
+    console.error(err.message)
+    res.send(500)
+  }
 })
 
-router.delete('/:pokemon', (req, res) => {
-  const pokemonName = req.params.pokemon as string
-  (async () => {
-    try {
-      await pokemonService.deletePokemon(pokemonName)
-      res.sendStatus(204)
-    } catch (err) {
-      res.send({ error: err })
-    }
-  })()
+pokemonRouter.delete('/:pokemon', async (req, res) => {
+  try {
+    const pokemonName = req.params.pokemon as string
+    await pokemonService.deletePokemon(pokemonName)
+    res.sendStatus(204)
+  } catch (err: any) {
+    res.send(err.message)
+  }
 })
 
-router.put('/:pokemon', (req, res) => {
-  (async () => {
-    const pokemonData = {
-      pokedex_number: +req.body.pokedex_number,
-      name: req.body.name,
-      generation: +req.body.generation,
-      status: req.body.status,
-      species: req.body.species,
-      type_1: req.body.type_1 as pokemonType,
-      type_2: req.body.type_2 as pokemonType,
-      height_m: +req.body.height_m,
-      weight_kg: +req.body.weight_kg,
-      ability_1: req.body.ability_1,
-      ability_2: req.body.ability_2,
-      ability_hidden: req.body.ability_hidden,
-      hp: +req.body.hp,
-      attack: +req.body.attack,
-      defense: +req.body.defense,
-      sp_attack: +req.body.sp_attack,
-      sp_defense: +req.body.sp_defense,
-      speed: +req.body.speed
-    }
+pokemonRouter.put('/:pokemon', async (req, res) => {
+  const pokemonData = req.body as Pokemon
+  const pokemonToUpdate = req.params.pokemon
 
-    const pokemonToUpdate = req.params.pokemon
-
-    try {
-      await pokemonService.updatePokemon(pokemonData, pokemonToUpdate)
-      res.sendStatus(204)
-    } catch (err) {
-      res.send({ error: err })
-    }
-  })()
+  try {
+    console.log(pokemonData)
+    await pokemonService.updatePokemon(pokemonData, pokemonToUpdate)
+    res.sendStatus(204)
+  } catch (err: any) {
+    console.log(err.message)
+    res.send(err.message)
+  }
 })
 
-export default router
+export default pokemonRouter

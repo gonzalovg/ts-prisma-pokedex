@@ -1,13 +1,13 @@
 import express from 'express'
 import morgan from 'morgan'
-import router from './routes/pokemon'
+import pokemonRouter from './routes/pokemon'
 
 const app = express()
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 app.use(morgan('tiny'))
 
-app.use('/api/pokemons', router)
+app.use('/api/pokemons', pokemonRouter)
 
 const PORT = process.env.PORT || 3000
 
