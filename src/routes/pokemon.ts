@@ -71,7 +71,6 @@ pokemonRouter.put('/:pokemon', async (req, res) => {
   const pokemonToUpdate = req.params.pokemon
 
   try {
-    console.log(pokemonData)
     await pokemonService.updatePokemon(pokemonData, pokemonToUpdate)
     res.sendStatus(204)
   } catch (err: any) {
