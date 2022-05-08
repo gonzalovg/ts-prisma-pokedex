@@ -15,7 +15,7 @@ const getPokemonsByGeneration = (generationPokemon: number): Promise<Pokemon[]> 
   return prisma.pokemons_mini.findMany({ where: { generation: generationPokemon } })
 }
 
-const getPokemon = (pokemonName: string) => {
+const getPokemon = (pokemonName: string): Promise<Pokemon[]> => {
   return prisma.pokemons_mini.findMany({ where: { name: { contains: pokemonName, mode: 'insensitive' } } })
 }
 
@@ -35,10 +35,6 @@ const updatePokemon = (pokemon: Pokemon, pokemonToUpdate: string) => {
     data: pokemon
   })
 }
-
-// export const addPokemon = async (pokemon:Object) => {
-
-// }
 
 const pokemonService = {
   getPokemons,

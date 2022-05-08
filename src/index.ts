@@ -7,7 +7,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('tiny'))
 
-app.use('/api/pokemons', pokemonRouter)
+app.use('/api/v1/pokemons', pokemonRouter)
 
 const PORT = process.env.PORT || 3000
 
