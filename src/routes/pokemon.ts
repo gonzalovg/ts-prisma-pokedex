@@ -38,7 +38,7 @@ pokemonRouter.post('/', async (req: Request, res: Response) => {
   try {
     const pokemon = req.body as Pokemon
     await pokemonService.addPokemon(pokemon)
-    res.sendStatus(204)
+    res.sendStatus(200)
   } catch (err: any) {
     console.error({ error: err.message })
     res.send(500)
@@ -49,7 +49,7 @@ pokemonRouter.delete('/:pokemon', async (req: Request, res: Response) => {
   try {
     const pokemonName = req.params.pokemon as string
     await pokemonService.deletePokemon(pokemonName)
-    res.sendStatus(204)
+    res.sendStatus(200)
   } catch (err: any) {
     res.send({ error: err.message })
   }
@@ -61,7 +61,7 @@ pokemonRouter.put('/:pokemon', async (req: Request, res: Response) => {
 
   try {
     await pokemonService.updatePokemon(pokemonData, pokemonToUpdate)
-    res.sendStatus(204)
+    res.sendStatus(200)
   } catch (err: any) {
     res.send({ error: err.message })
   }
