@@ -2,7 +2,7 @@
 import { Router, Request, Response } from 'express'
 import pokemonService from '../services/pokemon'
 import { Pokemon, pokemonType } from '../types'
-import { recordCountFormat } from '../utils'
+
 
 interface PokemonQuery {
   type: pokemonType
@@ -25,13 +25,13 @@ pokemonRouter.get('/', async (req: Request, res: Response) => {
     ? await initialPokemons.filter(pokemon => pokemon.generation === generation)
     : await initialPokemons
 
-  res.send(recordCountFormat(finalPokemons))
+  res.send(finalPokemons)
 })
 
 pokemonRouter.get('/:pokemon', async (req: Request, res: Response) => {
   const pokemonName = req.params.pokemon as string
   const pokemon = await pokemonService.getPokemon(pokemonName)
-  res.send(recordCountFormat(pokemon))
+  res.send(pokemon)
 })
 
 pokemonRouter.post('/', async (req: Request, res: Response) => {
