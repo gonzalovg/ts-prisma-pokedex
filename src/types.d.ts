@@ -1,6 +1,4 @@
 export type pokemonType = 'Ice' | 'Water' | 'Grass' | 'Dragon' | 'Fairy' | 'Electric' | 'Normal' | 'Psychic' | 'Bug' | 'Fire' | 'Poison' | 'Steel' | 'Fighting' | 'Flying' | 'Dark' | 'Ground' | 'Ghost' | 'Rock'
-// export type growthRate = 'Medium Slow' | 'Erratic' | '' | 'Fluctuating' | 'Medium Fast' | 'Slow' | 'Fast'
-// export type eggType = 'Grass' | 'Dragon' | 'Fairy' | 'Mineral' | 'Undiscovered' | 'Monster' | 'Bug' | 'Water 3' | 'Water 2' | 'Amorphous' | 'Human-Like' | '' | 'Flying' | 'Water 1' | 'Field' | 'Ditto'
 
 export interface Pokemon {
     pokedex_number: number | null

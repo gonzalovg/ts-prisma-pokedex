@@ -1,22 +1,14 @@
-import express from 'express'
-import morgan from 'morgan'
-import pokemonRouter from './routes/pokemon'
-import { ApolloServer } from 'apollo-server'
-import {typeDefs, resolvers} from './schema/pokemon.type'
+import 'reflect-metadata'
+import { startServer } from './app'
 
-export const app = express()
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(morgan('tiny'))
-app.use('/api/v1/pokemons', pokemonRouter)
+async function main() {
 
-// const PORT = process.env.PORT || 3000
+    const app = await startServer()
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, () => {
+        console.log(`Server is running http://localhost:${PORT}/api/v1/graphql`)
+    })
+}
 
-export const server = new ApolloServer({
-  typeDefs,
-  resolvers
-})
 
-server.listen().then(({url}) => {
-  console.log(`🚀 Server ready at ${url}`)
-})
+main()

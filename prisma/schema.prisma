@@ -7,61 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model pokemons {
-  pokedex_number   Int?
-  name             String? @db.VarChar(50)
-  german_name      String? @db.VarChar(50)
-  japanese_name    String? @db.VarChar(50)
-  generation       Int?
-  status           String? @db.VarChar(50)
-  species          String? @db.VarChar(50)
-  type_number      Int?
-  type_1           String? @db.VarChar(50)
-  type_2           String? @db.VarChar(50)
-  height_m         Float?  @db.Real
-  weight_kg        Float?  @db.Real
-  abilities_number Int?
-  ability_1        String? @db.VarChar(50)
-  ability_2        String? @db.VarChar(50)
-  ability_hidden   String? @db.VarChar(50)
-  total_points     Int?
-  hp               Int?
-  attack           Int?
-  defense          Int?
-  sp_attack        Int?
-  sp_defense       Int?
-  speed            Int?
-  catch_rate       Int?
-  base_friendship  Int?
-  base_experience  Int?
-  growth_rate      String? @db.VarChar(50)
-  egg_type_number  Int?
-  egg_type_1       String? @db.VarChar(50)
-  egg_type_2       String? @db.VarChar(50)
-  percentage_male  Float?  @db.Real
-  egg_cycles       Int?
-  against_normal   Int?
-  against_fire     Int?
-  against_water    Float?  @db.Real
-  against_electric Float?  @db.Real
-  against_grass    Float?  @db.Real
-  against_ice      Int?
-  against_fight    Float?  @db.Real
-  against_poison   Int?
-  against_ground   Int?
-  against_flying   Int?
-  against_psychic  Int?
-  against_bug      Int?
-  against_rock     Int?
-  against_ghost    Int?
-  against_dragon   Int?
-  against_dark     Int?
-  against_steel    Int?
-  against_fairy    Float?  @db.Real
 
-  @@ignore
-}
 
 model pokemons_mini {
   pokedex_number Int?

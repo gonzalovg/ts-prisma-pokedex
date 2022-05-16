@@ -7,7 +7,7 @@ const getPokemons = (): Promise<Pokemon[]> => {
   return prisma.pokemons_mini.findMany({ orderBy: { pokedex_number: 'asc' } })
 }
 
-const getPokemonsByType = (type: string): Promise<Pokemon[]> => {
+const getPokemonsByType = (type: String): Promise<Pokemon[]> => {
   return prisma.pokemons_mini.findMany({ where: { OR: [{ type_1: { equals: type.toLowerCase(), mode: 'insensitive' } }, { type_2: { equals: type.toLowerCase(), mode: 'insensitive' } }] } })
 }
 
