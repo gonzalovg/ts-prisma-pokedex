@@ -24,6 +24,7 @@ const addPokemon = (pokemon: Pokemon) => {
 }
 
 const deletePokemon = (pokemonName: string) => {
+  console.log(pokemonName)
   return prisma.pokemons_mini.delete({ where: { name: pokemonName } })
 }
 

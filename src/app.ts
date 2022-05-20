@@ -16,8 +16,6 @@ export async function startServer() {
     const server = new ApolloServer({
         schema: await buildSchema({
             resolvers: [PokemonResolver],
-
-
         }),
         context: ({ req, res }) => ({ req, res }),
     })
