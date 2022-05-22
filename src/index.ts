@@ -11,5 +11,5 @@ app.use('/api/v1/pokemons', pokemonRouter)
 const PORT = process.env.PORT || 3000
 
 export const server = app.listen(PORT, () => {
-  console.log(`app running on http://localhost:${PORT}`)
+  console.log(`app running on http://localhost:${PORT}/api/v1/pokemons`)
 })
